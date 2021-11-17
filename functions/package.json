@@ -1,0 +1,39 @@
+{
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "@nuxtjs/axios": "^5.13.6",
+    "@nuxtjs/firebase": "^7.6.1",
+    "axios": "^0.24.0",
+    "core-js": "^3.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "firebase": "8.10.0",
+    "firebase-admin": "^9.8.0",
+    "firebase-functions": "^3.14.1",
+    "nuxt": "^2.15.8",
+    "vuetify": "^2.5.5"
+  },
+  "devDependencies": {
+    "@mdi/font": "^6.4.95",
+    "@nuxt/types": "^2.15.7",
+    "@nuxt/typescript-build": "^2.1.0",
+    "@nuxtjs/vuetify": "^1.12.1",
+    "@vue/test-utils": "^1.2.1",
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "^27.0.5",
+    "firebase-functions-test": "^0.2.0",
+    "jest": "^27.0.5",
+    "ts-jest": "^27.0.3",
+    "vue-jest": "^3.0.4"
+  },
+  "private": true
+}
