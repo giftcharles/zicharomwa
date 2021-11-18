@@ -42,6 +42,7 @@ export default {
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
     '@nuxtjs/firebase',
+    "vue-toastification/nuxt",
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -52,7 +53,7 @@ export default {
     customVariables: ['~/assets/variables.scss'],
     treeShake: process.env.NODE_ENV === 'production',
     theme: {
-      dark: true,
+      dark: false,
       themes: {
         dark: {
           primary: colors.blue.darken2,
@@ -72,14 +73,13 @@ export default {
   firebase: {
     // options
     config: {
-      apiKey: "AIzaSyATIclvq1yKAxAe3FvxOFQBTqSCU5lRx9I",
-      authDomain: "geekyhubtz.firebaseapp.com",
-      databaseURL: "https://geekyhubtz.firebaseio.com",
-      projectId: "geekyhubtz",
-      storageBucket: "geekyhubtz.appspot.com",
-      messagingSenderId: "970321620142",
-      appId: "1:970321620142:web:fde4515dddff4a014dd13f",
-      measurementId: "G-JGF6H6TCLS"
+      apiKey: "AIzaSyC2rqshNYBIrxIh-8hMksQxHhulz9jVLZY",
+      authDomain: "zicharomwa-ent.firebaseapp.com",
+      projectId: "zicharomwa-ent",
+      storageBucket: "zicharomwa-ent.appspot.com",
+      messagingSenderId: "835628224931",
+      appId: "1:835628224931:web:b03eaab864354a3fb4ca16",
+      measurementId: "G-QFH0783FYM"
     },
     services: {
       auth: {

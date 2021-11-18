@@ -1,5 +1,6 @@
 <template>
-  <v-app app>
+  <v-app 
+  app>
     <v-app-bar
     color="transparent"
     app
@@ -26,8 +27,13 @@ export default {
 </script>
 
 <style>
-html, body, .v-application {
+html, body, .v-application, .theme--light.v-application {
   font-family: "poppins" !important;
+  background-color: #f1f1f1 !important;
+}
+
+.v-input__slot::before {
+  border-style: none !important;
 }
 
 .custom-primary {

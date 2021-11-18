@@ -6,7 +6,7 @@ importScripts(
 importScripts(
   'https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js'
 )
-firebase.initializeApp({"apiKey":"AIzaSyATIclvq1yKAxAe3FvxOFQBTqSCU5lRx9I","authDomain":"geekyhubtz.firebaseapp.com","databaseURL":"https:\u002F\u002Fgeekyhubtz.firebaseio.com","projectId":"geekyhubtz","storageBucket":"geekyhubtz.appspot.com","messagingSenderId":"970321620142","appId":"1:970321620142:web:fde4515dddff4a014dd13f","measurementId":"G-JGF6H6TCLS"})
+firebase.initializeApp({"apiKey":"AIzaSyC2rqshNYBIrxIh-8hMksQxHhulz9jVLZY","authDomain":"zicharomwa-ent.firebaseapp.com","projectId":"zicharomwa-ent","storageBucket":"zicharomwa-ent.appspot.com","messagingSenderId":"835628224931","appId":"1:835628224931:web:b03eaab864354a3fb4ca16","measurementId":"G-QFH0783FYM"})
 
 // Initialize authService
 const authService = firebase.auth()
