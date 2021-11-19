@@ -1,5 +1,6 @@
 <template>
-  <div class="home">
+  <div style="max-width: 1200px"> 
+      
   </div>
 </template>
 

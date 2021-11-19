@@ -44,13 +44,13 @@
           </div>
 
           <v-form>
-            <v-scroll-y-transition duration="100">
+            <!-- <v-scroll-y-transition duration="100">
               <ProfilePicUploader
                 v-if="routeName === 'signup'"
                 @uploaded="uploadedProfilePic"
                 class="mb-10"
               />
-            </v-scroll-y-transition>
+            </v-scroll-y-transition> -->
 
             <v-scroll-y-transition duration="100">
               <div v-if="routeName === 'signup'" class="d-flex">
@@ -163,7 +163,7 @@
                 <v-btn class="" depressed :ripple="false" large icon>
                   <v-img :width="18" class="mr-1" :src="require('../assets/images/facebook.png')"></v-img>
                 </v-btn>
-                <v-btn class="mr-2" depressed :ripple="false" large text icon>
+                <v-btn @click="googleLogin" class="mr-2" depressed :ripple="false" large text icon>
                   <v-img :width="18" class="mr-1" :src="require('../assets/images/google-logo-9827.png')"></v-img>
                 </v-btn>
                 <v-btn
@@ -204,6 +204,24 @@ export default {
   },
 
   methods: {
+    googleLogin(){
+      let provider = new this.$fireModule.auth.GoogleAuthProvider();
+      this.loading = true;
+      this.$fire.auth
+      .signInWithPopup(provider)
+      .then(async (result) => {
+        await this.$store.dispatch("setUserAction", JSON.parse(JSON.stringify(result.user)));
+        this.$store.dispatch("createBindings");
+        if(result.additionalUserInfo.isNewUser) {
+            await this.createProfile(result.user.uid);
+        }
+        this.$router.push("/");
+        this.loading = false;
+      }).catch((err) => {
+        console.error(err);
+        this.loading = false;
+      });
+    },
     uploadedProfilePic(profilePicLink) {
       this.profilePicLink = profilePicLink;
     },
@@ -217,6 +235,7 @@ export default {
             await this.$store.dispatch("setUserAction", JSON.parse(JSON.stringify(userCredential.user)));
             await this.createProfile((userCredential).user.uid);
             this.$store.dispatch("createBindings");
+            this.$toast.success("Success");
             this.$router.push("/");
             this.loading = false;
           })

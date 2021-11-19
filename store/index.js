@@ -16,23 +16,10 @@ export const mutations = {
 export const actions = {
   async onAuthStateChangedAction({ commit, dispatch }, { authUser, claims }) {
     if (!authUser) {
-      //   await dispatch('cleanupAction')
+        await dispatch('clearData')
         return
     }
-
-    // you can request additional fields if they are optional (e.g. photoURL)
-    const { uid, email, emailVerified, displayName, photoURL } = authUser
-
-    await commit('SET_USER', {
-        uid,
-        email,
-        emailVerified,
-        displayName,
-        photoURL, // results in photoURL being undefined for server auth
-        // use custom claims to control access (see https://firebase.google.com/docs/auth/admin/custom-claims)
-        isAdmin: claims.custom_claim
-    })
-
+    await commit('SET_USER', JSON.parse(JSON.stringify(authUser)))
     dispatch('getProfile')
   },
 
