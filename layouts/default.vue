@@ -16,7 +16,7 @@
                 (0)</v-btn
             >
 
-            <v-menu v-if="$store.state.user" offset-y>
+            <v-menu v-show="$store.state.currentUser" offset-y>
                 <template v-slot:activator="{ on, attrs }">
                     <v-chip v-bind="attrs" v-on="on" pill>
                         <span v-if="$store.state.profile">
@@ -30,7 +30,7 @@
                     </v-chip>
                 </template>
                 <v-list>
-                    <v-list-item>
+                    <v-list-item link>
                         <v-list-item-title @click="logOut" link
                             >Log Out</v-list-item-title
                         >
@@ -38,7 +38,7 @@
                 </v-list>
             </v-menu>
 
-            <div v-else>
+            <div v-show="!$store.state.currentUser">
                 <nuxt-link to="/auth?t=signup">
                     <span class="subtitle-2"> Register </span>
                 </nuxt-link>
@@ -50,6 +50,7 @@
         </v-toolbar>
         <v-divider></v-divider>
         <div v-intersect="onAppBarIntersect"></div>
+        <div v-if="!isAppIntersecting" style="height: 56px"></div>
         <v-app-bar flat :app="!isAppIntersecting" color="white">
             <nuxt-link to="/">
                 <LogoLarge
@@ -120,41 +121,95 @@
                 v-if="!showSearch"
                 @click="showSearch = !showSearch"
                 large
+                class="mr-1"
             >
                 <v-icon left>mdi-magnify</v-icon>
                 Search
             </v-btn>
 
-            <v-badge
-                v-if="!showSearch"
-                bordered
-                color="error"
-                icon="mdi-lock"
-                class="mr-1"
-                content="9+"
-            >
-                <v-icon color="error">mdi-cart</v-icon>
-            </v-badge>
-
-            <v-menu offset-y>
+            <v-menu v-if="!showSearch" offset-y>
                 <template v-slot:activator="{ on, attrs }">
                     <div v-bind="attrs" v-on="on">
-                        <span v-if="!showSearch" class="mr-3">|</span>
-                        <span v-if="!showSearch" class="subtitle-2"
-                            >90,000</span
+                        <v-badge
+                            v-if="$store.state.profile && $store.state.profile.cart"
+                            bordered
+                            color="error"
+                            class="mr-5"
+                            :content="`${$store.state.profile.cart ? $store.state.profile.cart.length : 0}`"
                         >
+                            <v-icon color="error">mdi-cart</v-icon>
+                        </v-badge>
+                        <v-icon v-else class="mr-2">mdi-cart</v-icon>
+                        <span class="mr-3">|</span>
+                        <span class="subtitle-2">{{ $store.state.profile ? makeNumberCommaSeparated($store.state.profile.cartBalance) : '0.00'  }}</span>
                     </div>
                 </template>
-                <div class="d-flex flex-column">
-                    
-                </div>
+                <v-card
+                width="400"
+                color="white"
+                class="pa-4"
+                >
+                    <div class="d-flex flex-column">
+                        <span class="text-h6 mb-4">Cart ({{ $store.state.profile ? $store.state.profile.cart.length : 0 }})</span>
+                        <div 
+                        class="d-flex"
+                        style="max-height: 300px; overflow: auto">
+                            <v-list v-if="cart" class="py-3">
+                                <v-list-item 
+                                v-for="order in cart"
+                                :key="order.id"
+                                link
+                                :to="`/products/${order.product.id}`"
+                                class="d-flex mb-5 align-start py-3">
+                                    <div class="mr-3">
+                                        <v-img 
+                                        :src="order.product.images[0]"
+                                        width="40"> 
+                                        </v-img>
+                                    </div>
+                                    <div class="d-flex flex-column align-start">
+                                        <span class="subtitle-2 mb-2">{{ order.product.name.slice(0, 50) }}...</span>
+
+                                        <div style="width: 100%" class="d-flex justify-center align-center caption">
+                                            <span>Tsh {{ makeNumberCommaSeparated(order.product.price * order.quantity) }}</span>
+                                            <span class="ml-auto">{{ order.quantity }} items</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <v-btn color="error" icon><v-icon>mdi-close</v-icon></v-btn>
+                                    </div>
+                                </v-list-item>
+                            </v-list>
+
+                            <v-progress-circular 
+                            v-intersect.quiet="bindCart"
+                            v-else
+                            class="mx-auto mb-4 mt-1" color="primary" indeterminate></v-progress-circular>
+                        
+                        </div>
+                        <div class="d-flex flex-column mt-5 mb-3">
+                            <div class="d-flex justify-space-between mb-3">
+                                <span>Sub Total:</span>
+                                <span>10,000</span>
+                            </div>
+                            <div class="d-flex justify-space-between mb-3">
+                                <span>Total:</span>
+                                <span>10,000</span>
+                            </div>
+                            <v-btn block tile depressed color="custom-primary white--text mb-3"> <v-icon left>mdi-cart</v-icon> View Cart</v-btn>
+                            <v-btn block tile depressed color="custom-primary white--text"><v-icon left>mdi-cash</v-icon> Check Out</v-btn>
+                        </div>
+                    </div>
+                </v-card>
             </v-menu>
+
         </v-app-bar>
         <v-main class="pt-0" style="min-height: 100vh">
             <v-slide-x-transition duration="100" mode="out-in">
                 <Nuxt />
             </v-slide-x-transition>
         </v-main>
+        <CategoryForm />
     </v-app>
 </template>
 
@@ -171,7 +226,17 @@ export default {
         };
     },
 
+    mounted() {
+        this.$store.dispatch('bindBusinessDoc')
+        this.$store.dispatch('bindCategoriesDocs')
+    },
+
+
+
     methods: {
+        bindCart(entries, observer){
+            this.$store.dispatch('bindCart')
+        },
         logOut() {
             this.$fire.auth.signOut();
             this.$store.dispatch("logout");
@@ -179,6 +244,11 @@ export default {
         },
         onAppBarIntersect(entries, observer) {
             this.debounce(this.appBarInsterectionAction(entries));
+        },
+        makeNumberCommaSeparated(value) {
+            return value
+                .toString()
+                .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
         },
         appBarInsterectionAction(entries) {
             return (this.isAppIntersecting = entries[0].isIntersecting);
@@ -193,6 +263,12 @@ export default {
             };
         },
     },
+
+    computed: {
+        cart() {
+            return this.$store.state.cart
+        }
+    }
 };
 </script>
 

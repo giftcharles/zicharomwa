@@ -16,7 +16,8 @@
     "firebase": "8.10.0",
     "nuxt": "^2.15.7",
     "vue-toastification": "^1.7.14",
-    "vuetify": "^2.5.5"
+    "vuetify": "^2.5.5",
+    "vuexfire": "^3.2.5"
   },
   "devDependencies": {
     "@mdi/font": "^6.4.95",
