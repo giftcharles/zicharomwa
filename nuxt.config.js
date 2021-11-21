@@ -1,4 +1,6 @@
 import colors from 'vuetify/es5/util/colors'
+import { POSITION } from "vue-toastification";
+
 export default {
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -95,6 +97,10 @@ export default {
       storage: true,
       analytics: true,
     }
+  },
+
+  toast: {
+    position: POSITION.BOTTOM_CENTER 
   },
 
   buildDir: 'functions/.nuxt',

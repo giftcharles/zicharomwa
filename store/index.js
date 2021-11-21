@@ -87,8 +87,9 @@ export const actions = {
       commit('SET_USER', null)
       commit('SET_PROFILE', { profile: null })
       dispatch('unbindBusinessDoc')
-      dispatch('unbindBusinessDoc')
       dispatch('unbindCategoriesDocs')
+      dispatch('unbindProfileDoc')
+      dispatch('unbindCart')
   },
 
   async getProfile({ dispatch }) {

@@ -12,8 +12,7 @@
                 <span class="text-lowercase">someemail@gmail.com</span></span
             >
             <v-btn text class="text-lowercase mr-2"
-                ><v-icon color="primary" left>mdi-heart</v-icon> Wishlist
-                (0)</v-btn
+                ><v-icon left>mdi-heart</v-icon> Wishlist (0)</v-btn
             >
 
             <v-menu v-show="$store.state.currentUser" offset-y>
@@ -30,6 +29,10 @@
                     </v-chip>
                 </template>
                 <v-list>
+                    <v-list-item link to="/admin">
+                        Admin
+                    </v-list-item>
+
                     <v-list-item link>
                         <v-list-item-title @click="logOut" link
                             >Log Out</v-list-item-title
@@ -131,79 +134,178 @@
                 <template v-slot:activator="{ on, attrs }">
                     <div v-bind="attrs" v-on="on">
                         <v-badge
-                            v-if="$store.state.profile && $store.state.profile.cart"
+                            v-if="
+                                $store.state.profile &&
+                                $store.state.profile.cart
+                            "
                             bordered
                             color="error"
                             class="mr-5"
-                            :content="`${$store.state.profile.cart ? $store.state.profile.cart.length : 0}`"
+                            :content="`${
+                                $store.state.profile.cart
+                                    ? $store.state.profile.cart.length
+                                    : 0
+                            }`"
                         >
                             <v-icon color="error">mdi-cart</v-icon>
                         </v-badge>
                         <v-icon v-else class="mr-2">mdi-cart</v-icon>
                         <span class="mr-3">|</span>
-                        <span class="subtitle-2">{{ $store.state.profile ? makeNumberCommaSeparated($store.state.profile.cartBalance) : '0.00'  }}</span>
+                        <span class="subtitle-2"><span class="mr-1">Tsh</span>{{
+                            $store.state.profile
+                                ? makeNumberCommaSeparated(
+                                      $store.state.profile.cartBalance
+                                  )
+                                : "0.00"
+                        }}</span>
                     </div>
                 </template>
-                <v-card
-                width="400"
-                color="white"
-                class="pa-4"
-                >
+                <v-card width="400" color="white" class="pa-4">
                     <div class="d-flex flex-column">
-                        <span class="text-h6 mb-4">Cart ({{ $store.state.profile ? $store.state.profile.cart.length : 0 }})</span>
-                        <div 
-                        class="d-flex"
-                        style="max-height: 300px; overflow: auto">
+                        <span class="mb-1"
+                            >({{
+                                $store.state.profile
+                                    ? $store.state.profile.cart.length
+                                    : 0
+                            }}) items in the cart</span
+                        >
+                        <div
+                            class="d-flex"
+                            style="max-height: 300px; overflow: auto"
+                        >
                             <v-list v-if="cart" class="py-3">
-                                <v-list-item 
-                                v-for="order in cart"
-                                :key="order.id"
-                                link
-                                :to="`/products/${order.product.id}`"
-                                class="d-flex mb-5 align-start py-3">
+                                <v-list-item
+                                    v-for="order in cart"
+                                    :key="order.id"
+                                    link
+                                    :to="`/products/${order.product.id}`"
+                                    class="d-flex mb-5 align-start py-3"
+                                >
                                     <div class="mr-3">
-                                        <v-img 
-                                        :src="order.product.images[0]"
-                                        width="40"> 
+                                        <v-img
+                                            :src="order.product.images[0]"
+                                            width="40"
+                                        >
                                         </v-img>
                                     </div>
                                     <div class="d-flex flex-column align-start">
-                                        <span class="subtitle-2 mb-2">{{ order.product.name.slice(0, 50) }}...</span>
+                                        <span class="subtitle-2 mb-2"
+                                            >{{
+                                                order.product.name.slice(0, 50)
+                                            }}...</span
+                                        >
 
-                                        <div style="width: 100%" class="d-flex justify-center align-center caption">
-                                            <span>Tsh {{ makeNumberCommaSeparated(order.product.price * order.quantity) }}</span>
-                                            <span class="ml-auto">{{ order.quantity }} items</span>
+                                        <div
+                                            style="width: 100%"
+                                            class="
+                                                d-flex
+                                                justify-center
+                                                align-center
+                                                caption
+                                            "
+                                        >
+                                            <span
+                                                >Tsh
+                                                {{
+                                                    makeNumberCommaSeparated(
+                                                        order.product.price *
+                                                            order.quantity
+                                                    )
+                                                }}</span
+                                            >
+                                            <span class="ml-auto"
+                                                >{{
+                                                    order.quantity
+                                                }}
+                                                items</span
+                                            >
                                         </div>
                                     </div>
                                     <div>
-                                        <v-btn color="error" icon><v-icon>mdi-close</v-icon></v-btn>
+                                        <v-btn color="error" icon
+                                            ><v-icon>mdi-close</v-icon></v-btn
+                                        >
                                     </div>
                                 </v-list-item>
                             </v-list>
 
-                            <v-progress-circular 
-                            v-intersect.quiet="bindCart"
-                            v-else
-                            class="mx-auto mb-4 mt-1" color="primary" indeterminate></v-progress-circular>
-                        
+                            <v-progress-circular
+                                v-intersect.quiet="bindCart"
+                                v-else
+                                class="mx-auto mb-4 mt-1"
+                                color="primary"
+                                indeterminate
+                            ></v-progress-circular>
                         </div>
                         <div class="d-flex flex-column mt-5 mb-3">
                             <div class="d-flex justify-space-between mb-3">
                                 <span>Sub Total:</span>
-                                <span>10,000</span>
+                                <span class="subtitle-2"><span class="mr-1">Tsh</span>{{
+                                    $store.state.profile
+                                        ? makeNumberCommaSeparated(
+                                            $store.state.profile.cartBalance
+                                        )
+                                        : "0.00"
+                                }}</span>
                             </div>
                             <div class="d-flex justify-space-between mb-3">
                                 <span>Total:</span>
-                                <span>10,000</span>
+                                <span class="subtitle-2"><span class="mr-1">Tsh</span>{{
+                                    $store.state.profile
+                                        ? makeNumberCommaSeparated(
+                                            $store.state.profile.cartBalance
+                                        )
+                                        : "0.00"
+                                }}</span>
                             </div>
-                            <v-btn block tile depressed color="custom-primary white--text mb-3"> <v-icon left>mdi-cart</v-icon> View Cart</v-btn>
-                            <v-btn block tile depressed color="custom-primary white--text"><v-icon left>mdi-cash</v-icon> Check Out</v-btn>
+                            <v-btn
+                                to="/cart"
+                                block
+                                tile
+                                depressed
+                                color="custom-primary white--text mb-3"
+                            >
+                                <v-icon left>mdi-cart</v-icon> View Cart</v-btn
+                            >
+                            <v-btn
+                                block
+                                tile
+                                depressed
+                                color="custom-primary white--text"
+                                ><v-icon left>mdi-cash</v-icon> Check Out</v-btn
+                            >
                         </div>
                     </div>
                 </v-card>
             </v-menu>
-
         </v-app-bar>
+        <v-divider v-if="$route.path.includes('admin')"></v-divider>
+        <v-slide-y-transition :duration="100" mode="out-in">
+            <v-toolbar v-if="$route.path.includes('admin')" dense flat>
+                <div class="mx-auto" style="min-width: 1280px">
+
+                    <span class="px-3 text--disabled">ADMIN PANEL</span>
+
+                    <nuxt-link to="/admin/categories">
+                        <v-btn to="/admin/categories" text class="px-3 mr-1 text-capitalize">Categories</v-btn>
+                    </nuxt-link>
+
+                    <nuxt-link to="/admin/products">
+                        <v-btn to="/admin/products" text class="px-3 mr-1 text-capitalize">Products</v-btn>
+                    </nuxt-link>
+
+                    <nuxt-link to="/admin/customers">
+                        <v-btn to="/admin/customers" text class="px-3 mr-1 text-capitalize">Customers</v-btn>
+                    </nuxt-link>
+
+                    <nuxt-link to="/admin/orders">
+                        <v-btn to="/admin/orders" text class="px-3 mr-1 text-capitalize">Orders</v-btn>
+                    </nuxt-link>
+                    
+                </div>
+            </v-toolbar>
+        </v-slide-y-transition>
+
         <v-main class="pt-0" style="min-height: 100vh">
             <v-slide-x-transition duration="100" mode="out-in">
                 <Nuxt />
@@ -227,15 +329,13 @@ export default {
     },
 
     mounted() {
-        this.$store.dispatch('bindBusinessDoc')
-        this.$store.dispatch('bindCategoriesDocs')
+        this.$store.dispatch("bindBusinessDoc");
+        this.$store.dispatch("bindCategoriesDocs");
     },
 
-
-
     methods: {
-        bindCart(entries, observer){
-            this.$store.dispatch('bindCart')
+        bindCart(entries, observer) {
+            this.$store.dispatch("bindCart");
         },
         logOut() {
             this.$fire.auth.signOut();
@@ -266,9 +366,9 @@ export default {
 
     computed: {
         cart() {
-            return this.$store.state.cart
-        }
-    }
+            return this.$store.state.cart;
+        },
+    },
 };
 </script>
 

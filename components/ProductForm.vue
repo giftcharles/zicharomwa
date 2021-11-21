@@ -184,6 +184,12 @@
                         >{{ item.name }}</span>
                     </template>
                 </v-select>
+                <div @click="categoryDialog=true" class="d-flex mt-3">
+                    <v-btn color="custom-primary" class="ml-auto" text>
+                        <v-icon left>mdi-plus</v-icon>
+                        New category</v-btn>
+                </div>
+                <CategoryForm />
             </v-card>
 
             <v-card outlined tile class=" pa-5 d-flex flex-column mb-8">
@@ -290,7 +296,7 @@ export default {
                 creationTime: new Date(),
                 wishes: 0,
                 price: this.price,
-                category: this.$store.state.categories[parseInt(this.category)],
+                category: this.$store.state.categories[parseInt(this.category)-1],
             }
 
             return ref.set(data, { merge: true }).catch(console.error).then(() => {
@@ -313,6 +319,14 @@ export default {
         },
         slug() {
             return this.name.toLowerCase().slice(0,90).split(" ").join("-") + `.${(this.$store.state.business.productsCount+1).toString().padStart(4,"0")}`
+        },
+        categoryDialog: {
+            get() {
+                return this.$store.state.showCategoryDialog
+            },
+            set(value) {
+                return this.$store.commit('SET_CATEGORY_DIALOG', {value})
+            },
         }
     },
 };

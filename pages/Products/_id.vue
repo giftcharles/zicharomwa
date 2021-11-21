@@ -5,15 +5,14 @@
         tile
         class="pa-3 mx-auto d-flex flex-column mt-3"
     >
-        <ProductForm v-if="!id" />
         <div v-if="id" class="d-flex align-center my-4">
-            <span>Some</span>
+            <nuxt-link to="/">
+                <span>Home</span>
+            </nuxt-link>
             <v-icon color="grey">mdi-chevron-right</v-icon>
-            <span>Product</span>
+            <span>{{ product.category ? product.category.name: '' }}</span>
             <v-icon color="grey">mdi-chevron-right</v-icon>
-            <span>Category</span>
-            <v-icon color="grey">mdi-chevron-right</v-icon>
-            <span class="primary--text"
+            <span 
                 >{{ product.name.slice(0, 20) }}...</span
             >
         </div>
@@ -142,8 +141,8 @@
                         <v-icon class="mr-3" color="black">mdi-cart</v-icon>
                         <span class="black--text">{{ !inCart ? 'Add to cart' : 'Update cart' }}</span>
                     </v-btn>
-                    <v-btn color="error" v-if="inCart" icon class="mr-2" @click="removeFromCart"><v-icon>mdi-close</v-icon></v-btn>
-                    <v-icon x-large>mdi-heart-outline</v-icon>
+                    <v-btn color="error" v-if="inCart" icon class="mr-3" @click="removeFromCart"><v-icon>mdi-close</v-icon></v-btn>
+                    <v-icon class="ml-3" x-large>mdi-heart-outline</v-icon>
                     <!-- <v-icon x-large color="red">mdi-heart</v-icon> -->
                 </div>
 
