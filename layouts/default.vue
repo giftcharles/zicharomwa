@@ -281,27 +281,13 @@
         </v-app-bar>
         <v-divider v-if="$route.path.includes('admin')"></v-divider>
         <v-slide-y-transition :duration="100" mode="out-in">
-            <v-toolbar v-if="$route.path.includes('admin')" dense flat>
+            <v-toolbar v-show="$route.path.includes('admin')" dense flat>
                 <div class="mx-auto" style="min-width: 1280px">
-
                     <span class="px-3 text--disabled">ADMIN PANEL</span>
-
-                    <nuxt-link to="/admin/categories">
-                        <v-btn to="/admin/categories" text class="px-3 mr-1 text-capitalize">Categories</v-btn>
-                    </nuxt-link>
-
-                    <nuxt-link to="/admin/products">
-                        <v-btn to="/admin/products" text class="px-3 mr-1 text-capitalize">Products</v-btn>
-                    </nuxt-link>
-
-                    <nuxt-link to="/admin/customers">
-                        <v-btn to="/admin/customers" text class="px-3 mr-1 text-capitalize">Customers</v-btn>
-                    </nuxt-link>
-
-                    <nuxt-link to="/admin/orders">
-                        <v-btn to="/admin/orders" text class="px-3 mr-1 text-capitalize">Orders</v-btn>
-                    </nuxt-link>
-                    
+                    <v-btn to="/admin/categories" text class="px-3 mr-1 text-capitalize">Categories</v-btn>
+                    <v-btn to="/admin/products" text class="px-3 mr-1 text-capitalize">Products</v-btn>
+                    <v-btn to="/admin/users" text class="px-3 mr-1 text-capitalize">Users</v-btn>
+                    <v-btn to="/admin/orders" text class="px-3 mr-1 text-capitalize">Orders</v-btn>
                 </div>
             </v-toolbar>
         </v-slide-y-transition>
@@ -381,7 +367,7 @@ body,
     background-color: #fafafa !important;
 }
 
-.v-input__slot::before {
+form .v-input__slot::before {
     border-style: none !important;
 }
 

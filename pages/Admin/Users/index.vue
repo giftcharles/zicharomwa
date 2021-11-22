@@ -50,7 +50,6 @@
                         :items="categories"
                         hide-details
                         outlined
-                        clearable
                         dense
                         @change="(e) => { chooseCategoryParent(e, item) }"
                         placeholder="Choose parent category"

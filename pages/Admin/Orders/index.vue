@@ -16,7 +16,6 @@
         <v-data-table
             :headers="headers"
             :items="products"
-            hide-actions
             :loading="loading"
         >
             <template v-slot:item.images="{ item }">

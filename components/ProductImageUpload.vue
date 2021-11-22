@@ -70,6 +70,14 @@ export default {
             loading: [],
         };
     },
+    props: ['currentImages'],
+    watch: {
+        currentImages(v) {
+            if(v && v.length > 0) {
+                this.images = v
+            }
+        }
+    },
     methods: {
         removeImage(image) {
             this.images = this.images.filter((img) => image !== img)

@@ -6,9 +6,16 @@
         class="pa-3 mx-auto d-flex flex-column mt-3"
     >
         <v-toolbar flat>
-            <span class="text--secondary">{{ $store.state.business.productsCount }} item(s)</span>
+            <span class="text--secondary mr-3">{{ $store.state.business.productsCount }} item(s)</span>
+            <v-text-field
+            placeholder="search"
+            hide-details
+            prepend-icon="mdi-magnify"
+            ></v-text-field>
             <v-spacer></v-spacer>
-            <v-btn color="custom-primary" class="white--text" depressed
+            <v-btn 
+            to="/admin/products/new"
+            color="custom-primary" class="white--text" depressed
                 ><v-icon color="white" left>mdi-plus</v-icon> New Product</v-btn
             >
         </v-toolbar>
@@ -16,7 +23,6 @@
         <v-data-table
             :headers="headers"
             :items="products"
-            hide-actions
             :loading="loading"
         >
             <template v-slot:item.images="{ item }">
