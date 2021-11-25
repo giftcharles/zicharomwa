@@ -20,9 +20,8 @@
         <div v-if="id" class="d-flex">
             <div class="d-flex flex-column" style="min-width: 50%">
                 <v-img
-                    width="100%"
-                    min-width="100%"
                     height="500px"
+                    contain
                     class="mb-4"
                     :src="previewImage"
                 ></v-img>
@@ -65,7 +64,7 @@
                 >
                 <div class="d-flex align-center mb-8">
                     <span class="mr-6 subtitle-2">Quantity:</span>
-                    <v-card outlined class="d-flex">
+                    <v-card outlined class="d-flex incrementer">
                         <v-btn
                             tile
                             @click="increment(-1)"

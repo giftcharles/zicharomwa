@@ -31,7 +31,7 @@
                     <v-card
                         style="max-width: 300px"
                         outlined
-                        class="d-flex justify-space-between"
+                        class="d-flex justify-space-between incrementer"
                     >
                         <v-btn
                             tile
@@ -250,4 +250,5 @@ export default {
 </script>
 
 <style>
+
 </style>

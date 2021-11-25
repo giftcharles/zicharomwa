@@ -394,4 +394,8 @@ a {
     );
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00acba",endColorstr="#4ada00",GradientType=1);
 }
+
+.incrementer input {
+    text-align: center;
+}
 </style>
