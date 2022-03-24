@@ -1525,10 +1525,10 @@
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
 
-"@mdi/font@^6.4.95":
-  version "6.4.95"
-  resolved "https://registry.yarnpkg.com/@mdi/font/-/font-6.4.95.tgz#d3b7a615c4c82ba2a9c29b2b59b158dced4f9b0e"
-  integrity sha512-jCQdXCD339EXirWYFbZv1Ansthm9j6O3FSQLsfi/mKamnGYxqbUBm5D4UjcVr6HVYIPNwTQQ46HNHlswPD8RcQ==
+"@mdi/font@^6.6.95":
+  version "6.6.95"
+  resolved "https://registry.yarnpkg.com/@mdi/font/-/font-6.6.95.tgz#668e023f19aa3cab1549088c767df055387c6b8a"
+  integrity sha512-WAQfnO/eqZEwXd+wD4mFV/Vna9RrVEyOdYKFa2H+sqf+PJ/a/803pPacEioOAuzGfXUVScm8cdZi8KqyeCCs1Q==
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
